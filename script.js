@@ -1,8 +1,8 @@
 // COCKTAIL APIs
 
 /// API for Drinks Names and photos
-// will need to change "searchInput" in the url to a variable which is linked to the search term
-const searchInput = "vodka";
+// will need to change "searchInput" in the url to a variable which is linked to the search term --> recommend a dorp-down so there's no need to code to account for case-sensitivity etc.
+const searchInput = "lemonade";
 
 let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${searchInput}`;
 let cOptions = {
@@ -41,18 +41,29 @@ fetch(url, cOptions)
     }
     console.log(drinkPhoto)
 
-        // Below creates an array for each drink's instructions
+            // below creates an each statement which pulls ingredients from the fetch query
+            const drinks = data.drinks
+
+            drinks.forEach(drink => {
+              const ingredients = Object.keys(drink)
+                .filter(key => key.startsWith('strIngredient'))
+                .reduce((result, key) => {
+                  if (drink[key]) {
+                    result.push(drink[key]);
+                  }
+                  return result;
+                }, []);
+    
+              console.log(ingredients);
+
+        // Below creates an array for each drink's recipe instructions
         let drinkInstructions = [];
 
         for (let i = 0; i < data.drinks.length; i++) {
           drinkInstructions.push(data.drinks[i].strInstructions)
         }
         console.log(drinkInstructions)
-
-        // // Below creates an array for each drink's ingredients
-        // AMARJIT --> please add your code to pull data on drinks ingredients here if you can
-        // I've run out of APIs requests for today so will try again tomorrow.
-
+});
 
 
   });
