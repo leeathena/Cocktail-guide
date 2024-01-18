@@ -1,0 +1,8 @@
+body {
+    padding-top: 56px;
+    /* Adjust for fixed navbar */
+}
+
+.translator {
+    margin-top: 20px;
+}
