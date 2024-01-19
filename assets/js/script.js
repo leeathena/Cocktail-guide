@@ -661,11 +661,34 @@ const handleFormSubmit = function (event) {
     return;
   }
 // only once a drink is chosen can the function mo
+storeSearchTerm(chosenDrink); // Store the search term
   drinksAPI(chosenDrink);
 
 };
 
 drinkFormEl.on('submit', handleFormSubmit);
+
+//storing search term to local storage
+function storeSearchTerm(chosenDrink) {
+  let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
+  searches.push(chosenDrink);
+  localStorage.setItem('cocktail-names', JSON.stringify(searches));
+  displayStoredSearchTerms();
+}
+
+//Retrieving and Displaying Stored Search Terms
+function displayStoredSearchTerms() {
+  let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
+  let sidebar = $('#search-sidebar');
+  sidebar.empty();
+  searches.forEach(function(chosenDrink) {
+      sidebar.append(`<div>${chosenDrink}</div>`);
+  });
+}
+
+$(document).ready(function() {
+  displayStoredSearchTerms();
+});
 
 // will need to include a variable which links "drinkNameList" and "chosenDrink" --> e.g. so when one of the elements in 'drinkNameList' is selected and the submit button is clicked, the selected drink from the list becomes the value of the "chosenDrink" variable below.
 
