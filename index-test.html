@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <meta charset="utf-8">
+    <!-- Apply jQuery UI <link> element here -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Cocktail</title>
+</head>
+
+<body>
+
+  <form id="cocktail-form">
+    <div class="mb-3 row">
+      <label for="cocktail" class="col-sm-4 col-form-label">Cocktail Name:
+      </label>
+      <div class="col-sm-8 pb-2">
+        <input type="text" class="form-control" id="cocktail-name" />
+      </div>
+    </div>
+    <button type="submit" value="Submit" class="btn btn-info">
+      Submit
+    </button>
+  </form>
+
+  <!-- Retrieved data will be dumped here -->
+  <div class="drink-name"></div>
+  <div class="drink-ingredients"></div>
+  <div class="instructions"></div>
+  <div class="translation"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Apply jQuery UI <script> tag here -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script type="text/javascript" src="./script.js"></script>
+</body>
+
+</html>
