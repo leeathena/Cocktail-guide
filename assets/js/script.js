@@ -1,11 +1,7 @@
-///////////////              COCKTAIL APIs
-const drinkFormEl = $('#cocktail-form');
-const drinkNameInputEl = $('#cocktail-name');
-
 // 1_Created an array from an earlier data output and sorted alphabetically (with duplicates removed) --> all of these drinks are in the cocktail API
 // 2_Then used the created object to make an autocomplete widget
 //
-$( function() {
+$(document).ready(function() {
   var drinkNameList = [
     "110 in the shade",
     "151 Florida Bushwacker",
@@ -641,120 +637,77 @@ $( function() {
     "Zorbatini",
     "Zorro"
   ];
-  $( '#cocktail-name' ).autocomplete({
-    source: drinkNameList
+
+  const drinkFormEl = $('#cocktail-form');
+  const drinkNameInputEl = $('#cocktail-name');
+
+  drinkNameInputEl.autocomplete({
+      source: drinkNameList
   });
-} );
 
-// function below is used to take the selected drink name (from the list) and store it in 'chosenDrink' to use in the API later
-
-let chosenDrink = '';
-
-const handleFormSubmit = function (event) {
-  event.preventDefault()
-  let chosenDrink = drinkNameInputEl.val();
-
-  console.log(chosenDrink);
-
-  if (!chosenDrink) {
-    console.log('You need to choose a drink!');
-    return;
-  }
-// only once a drink is chosen can the function mo
-storeSearchTerm(chosenDrink); // Store the search term
-  drinksAPI(chosenDrink);
-
-};
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    let chosenDrink = drinkNameInputEl.val();
+    console.log("Chosen Drink:", chosenDrink); 
+    if (!chosenDrink) {
+        console.log('You need to choose a drink!');
+        return;
+    }
+    storeSearchTerm(chosenDrink);
+    drinksAPI(chosenDrink);
+}
 
 drinkFormEl.on('submit', handleFormSubmit);
 
-//storing search term to local storage
-function storeSearchTerm(chosenDrink) {
-  let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
-  searches.push(chosenDrink);
-  localStorage.setItem('cocktail-names', JSON.stringify(searches));
-  displayStoredSearchTerms();
-  console.log(displayStoredSearchTerms);
-}
-
-//Retrieving and Displaying Stored Search Terms
-function displayStoredSearchTerms() {
-  let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
-  let sidebar = $('#search-sidebar');
-  sidebar.empty();
-  searches.forEach(function(chosenDrink) {
-      sidebar.append(`<button>${chosenDrink}</button>`);
-  });
-}
-
-$(document).ready(function() {
-  displayStoredSearchTerms();
-});
-
-// will need to include a variable which links "drinkNameList" and "chosenDrink" --> e.g. so when one of the elements in 'drinkNameList' is selected and the submit button is clicked, the selected drink from the list becomes the value of the "chosenDrink" variable below.
-
-// essentially we need an 'onClick' function
-
-const drinksAPI = function (chosenDrink) {
-
-let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;
-let cOptions = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': 'dd65562ce6msh0d8441fffb5ded0p19d99cjsn8a649b85763c',
-    'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-  }
-};
-
-// ////////
-
-// We then created an Fetch call
-fetch(url, cOptions)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-
-
-    // Below isolates a specific drink object -- data.drinks[i].strDrink -- to create a drinkName array)
-    let drinkName = [];
-
-    for (let i = 0; i < data.drinks.length; i++) {
-      // drinkName = (data.drinks[i].strDrink)
-      drinkName.push(data.drinks[i].strDrink)
+  function storeSearchTerm(chosenDrink) {
+    if (!chosenDrink) {
+      console.log('No drink chosen, not storing.');
+      return;
     }
-    console.log(drinkName)
-
-
-    // below creates an each statement which pulls ingredients from the fetch query
-    const drinks = data.drinks
-
-    drinks.forEach(function(drink) {
-        const ingredients = Object.keys(drink)
-        .filter(function(key) {
-          return key.startsWith('strIngredient');
-        })
-        .reduce(function(result, key) {
-          if (drink[key]) {
-            result.push(drink[key]);
-          }
-          return result;
-        }, []);
-    
-      console.log(ingredients);
+  
+    let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
+    searches.push(chosenDrink);
+    localStorage.setItem('cocktail-names', JSON.stringify(searches));
+  
+    console.log('Stored Searches:', localStorage.getItem('cocktail-names'));
+  
+    displayStoredSearchTerms();
+  }
+  
+  function displayStoredSearchTerms() {
+    let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
+    let sidebar = $('#search-sidebar');
+    sidebar.empty();
+    searches.forEach(function(chosenDrink) {
+      sidebar.append(`<button>${chosenDrink}</button>`);
     });
+  }
+  
+  
+  function drinksAPI(chosenDrink) {
+      let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;
+      let cOptions = {
+          method: 'GET',
+          headers: {
+              'X-RapidAPI-Key': 'dd65562ce6msh0d8441fffb5ded0p19d99cjsn8a649b85763c',
+              'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+          }
+      };
 
-        // Below creates an array for each drink's recipe instructions
-        let drinkInstructions = [];
+      fetch(url, cOptions)
+          .then(response => response.json())
+          .then(data => {
+              // process data
+          })
+          .catch(error => console.error('Error:', error));
+  }
 
-        for (let i = 0; i < data.drinks.length; i++) {
-          drinkInstructions.push(data.drinks[i].strInstructions)
-        }
-        console.log(drinkInstructions)
+  function searchCocktails() {
+      drinkFormEl.submit();
+  }
 
+  displayStoredSearchTerms();
 });
-}
 
 // // TRANSLATION API
 
