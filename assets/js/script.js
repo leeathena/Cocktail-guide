@@ -651,7 +651,7 @@ $( function() {
 let chosenDrink = '';
 
 const handleFormSubmit = function (event) {
-  event.preventDefault();
+  event.preventDefault()
   let chosenDrink = drinkNameInputEl.val();
 
   console.log(chosenDrink);
@@ -674,6 +674,7 @@ function storeSearchTerm(chosenDrink) {
   searches.push(chosenDrink);
   localStorage.setItem('cocktail-names', JSON.stringify(searches));
   displayStoredSearchTerms();
+  console.log(displayStoredSearchTerms);
 }
 
 //Retrieving and Displaying Stored Search Terms
@@ -682,7 +683,7 @@ function displayStoredSearchTerms() {
   let sidebar = $('#search-sidebar');
   sidebar.empty();
   searches.forEach(function(chosenDrink) {
-      sidebar.append(`<div>${chosenDrink}</div>`);
+      sidebar.append(`<button>${chosenDrink}</button>`);
   });
 }
 
