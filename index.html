@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Cocktail-translator/assets/css/style.css" />
+    
 </head>
 
 <body>
@@ -32,7 +33,7 @@
 
         <!-- Search Bar for Cocktails -->
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search for cocktails..." id="cocktailSearch">
+            <input type="text" class="form-control" placeholder="Search for cocktails..." id="cocktail-name">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" onclick="searchCocktails()">Search</button>
             </div>
@@ -42,6 +43,10 @@
         <div class="col-md-6 mb-3">
             <button class="btn btn-primary mr-2" type="button">Popular Cocktails</button>
             <button class="btn btn-secondary" type="button">Suggest a Random Cocktail</button>
+        </div>
+
+         <!-- side menu for search history -->
+        <div id="search-sidebar" class="search-sidebar">
         </div>
         
         <!-- Translator Section -->
@@ -60,6 +65,8 @@
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../Cocktail-translator/assets/js/script.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 </body>
 
