@@ -1,6 +1,3 @@
-// 1_Created an array from an earlier data output and sorted alphabetically (with duplicates removed) --> all of these drinks are in the cocktail API
-// 2_Then used the created object to make an autocomplete widget
-//
 $(document).ready(function() {
   var drinkNameList = [
     "110 in the shade",
@@ -684,37 +681,129 @@ drinkFormEl.on('submit', handleFormSubmit);
   }
   
   
-  function drinksAPI(chosenDrink) {
-      let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;
-      let cOptions = {
-          method: 'GET',
-          headers: {
-              'X-RapidAPI-Key': 'dd65562ce6msh0d8441fffb5ded0p19d99cjsn8a649b85763c',
-              'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-          }
-      };
+  const drinksAPI = function (chosenDrink) {
 
-      fetch(url, cOptions)
-          .then(response => response.json())
-          .then(data => {
-              // process data
-          })
-          .catch(error => console.error('Error:', error));
-  }
+    let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;
+    let cOptions = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': 'dd65562ce6msh0d8441fffb5ded0p19d99cjsn8a649b85763c',
+        'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+      }
+    };
+    
+    // ////////
+    
+    // We then created an Fetch call
+    fetch(url, cOptions)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+    
+    
+        // Below isolates a specific drink object -- data.drinks[i].strDrink -- to create a drinkName array)
+        let drinkName = [];
+    
+        for (let i = 0; i < data.drinks.length; i++) {
+          // drinkName = (data.drinks[i].strDrink)
+          drinkName.push(data.drinks[i].strDrink)
+        }
+        console.log(drinkName)
+    
+    
+        // DRINK PHOTO
+        let drinkPhoto = [];
+    
+        for (let i = 0; i < data.drinks.length; i++) {
+          drinkPhoto.push(data.drinks[i].strDrinkThumb)
+        }
+        console.log(drinkPhoto)
+    
+        // INGREDIENTS
+        const drinks = data.drinks
+        let drinkIngredients = [];
+    
+        drinks.forEach(function (drink) {
+          let ingredients = Object.keys(drink)
+            .filter(function (key) {
+              return key.startsWith('strIngredient');
+            })
+            .reduce(function (result, key) {
+              if (drink[key]) {
+                result.push(drink[key]);
+              }
+              return result;
+            }, []);
+        
+          // Fixed the scoping issue -- declared ingredients outside
+          drinkIngredients.push(ingredients);
+        });
+    
+    
+            // RECIPE
+            let drinkInstructions = [];
+    
+            for (let i = 0; i < data.drinks.length; i++) {
+              drinkInstructions.push(data.drinks[i].strInstructions)
+            }
+            console.log(drinkInstructions)
+    
+    
+            const cardCol = $('<div>').attr('class', 'col-md')
+            const drinksCard = $('<div>').attr('class', 'card')
+            const cardBody = $('<div>').attr('class', 'card-body')
+    
+        // append drink name and photo
+        const drinkTitle = $('<h2>').attr('class', 'card-title').text(`${drinkName}`)
+        const drinksIcon = $('<img>').attr('src', drinkPhoto).width(200)
+        $('#drink-info').append(cardCol)
+        cardCol.append(drinksCard)
+        drinksCard.append(cardBody)
+    
+    
+    // FOR LOOP HERE FOR EACH INGREDIENT
+    const drinkIngredientsEl = $('#ingredients');
+    
+    // Iterate over the drinkIngredients array
+    drinkIngredients.forEach(ingredients => {
+      // Create a new unordered list for each set of ingredients
+      const ingredientList = $('<ul>').attr('class', 'ingredient-list');
+    
+      // Iterate over the current set of ingredients and create list items
+      ingredients.forEach(ingredient => {
+        const listItem = $('<li>').text(ingredient);
+        ingredientList.append(listItem);
+      });
+    
+      // Append the current unordered list to the #ingredients ul
+      drinkIngredientsEl.append(ingredientList);
+    });
+    
+    // Append the other elements outside the loop into one card
+    cardBody.append(drinkTitle, drinksIcon, drinkIngredientsEl, drinkInstructions);
+    
+    });
+    }
 
+    // not sure what this function does so left it alone :)
   function searchCocktails() {
       drinkFormEl.submit();
   }
 
   displayStoredSearchTerms();
-});
+
+
+
 
 // // TRANSLATION API
 
-// // will need to change "translateInput" in the url to a variable which is linked to the cocktail text result
-// const translateInput = 'Hi';
-// // will need to change "translationChoice" in the url to a variable which is linked to translate buttons
-// const translationChoice = 'es';
+// // tried to create a variable called "translateInput" which connects to the API drinks result - don't think I'm doing it right
+
+// const translateInput = $('#drink-info').text();
+
+// const translationChoice = 'es'; // Replace with the target language code
 
 // const translateUrl = 'https://deep-translate1.p.rapidapi.com/language/translate/v2';
 // const tOptions = {
@@ -725,25 +814,32 @@ drinkFormEl.on('submit', handleFormSubmit);
 //         'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com'
 //     },
 //     body: JSON.stringify({
-//       // the "q" is where you input your text info (jQuery --> get item)
+//     // the "q" is where you input your text info (jQuery --> get item)
 //         q: translateInput,
 //         source: 'en',
 //         target: translationChoice
 //     })
 // };
 
-
 // fetch(translateUrl, tOptions)
-//   .then(function (response) {
-//           console.log(response)
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log(data); 
-    
-//     console.log(data.translations.translatedText);  
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error(`Translation failed with status: ${response.status}`);
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         console.log(data);
+//         if (data.translations && data.translations.translatedText) {
+//             const translatedText = data.translations.translatedText;
+//             console.log(`Translation result: ${translatedText}`);
 
-//     // $('.translation').text(`translation result: ${data.translations.translatedText}`);
-
-
-//   });
+//         } else {
+//             console.log('Translation result not available.');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error during translation:', error);
+//     });
+  
+  }); // end of '$(document).ready(function()' function
