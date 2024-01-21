@@ -635,6 +635,7 @@ $(document).ready(function() {
     "Zorro"
   ];
 
+
   const drinkFormEl = $('#cocktail-form');
   const drinkNameInputEl = $('#cocktail-name');
 
@@ -676,7 +677,7 @@ drinkFormEl.on('submit', handleFormSubmit);
     let sidebar = $('#search-sidebar');
     sidebar.empty();
     searches.forEach(function(chosenDrink) {
-      sidebar.append(`<button>${chosenDrink}</button>`);
+      sidebar.append(`<div class="row"><button class="btn btn-primary btn-block">${chosenDrink}</button></div>`);
     });
   }
   

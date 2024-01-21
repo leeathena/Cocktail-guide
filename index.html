@@ -29,6 +29,11 @@
 
     <!-- Content -->
     <div class="container">
+    <div class="row">
+
+
+        <div class="col-md-9">
+
         <h1>Cocktail Translator</h1>
 
         <!-- Search Bar for Cocktails -->
@@ -36,10 +41,11 @@
         <form id="cocktail-form">
             <input type="text" class="form-control" placeholder="Search for cocktails..." id="cocktail-name">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                <button id="search-button" class="btn btn-outline-secondary" type="submit">Search</button>
             </div>
         </form>
         </div>
+       
         <section id="drink-info" class="row mt-6">
             <ul id="ingredients">
                 <!-- Drinks ingredients will be dynamically added here -->
@@ -52,9 +58,7 @@
             <button class="btn btn-secondary" type="button">Suggest a Random Cocktail</button>
         </div>
 
-         <!-- side menu for search history -->
-        <div id="search-sidebar" class="search-sidebar">
-        </div>
+        
         
         <!-- Translator Section -->
         <div class="translator">
@@ -64,7 +68,17 @@
 
         </div>
     </div>
+    
+    <!-- side menu for search history -->
+        <div class="col-md-3">
+            <div id="search-sidebar" class="search-sidebar">
+             </div>
+        </div>
 
+
+</div>
+</div>
+    
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
