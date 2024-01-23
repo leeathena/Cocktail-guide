@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- J Query stylesheet -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
     <title>Cocktail Library</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../Cocktail-translator/assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
 
 </head>
 
@@ -32,17 +30,18 @@
 
     <!-- Content -->
     <div class="container">
-        <h1>Search for a Cocktail</h1>
+        <h1>Cocktail Library</h1>
 
         <!-- Search Bar for Cocktails -->
         <div class="input-group mb-3">
             <form id="cocktail-form">
-                <input type="text" class="form-control" placeholder="Type here..." id="cocktail-name">
-                <div class="input-group-append">
+                <input type="text" class="form-control mt-1" placeholder="Search for a drink..." id="cocktail-name">
+                <div class="input-group-append mt-2">
                     <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </div>
             </form>
         </div>
+
         <section id="drink-info" class="row mt-6">
             <ul id="ingredients">
                 <!-- Drinks ingredients will be dynamically added here -->
@@ -50,23 +49,22 @@
             <div class="row" id="instructions"></div>
         </section>
 
-        <div class="col-md-6 mb-3">
-
-            <button class="btn btn-secondary" type="button" id="refresh-button">Suggest a Random Cocktail</button>
-        </div>
-        <section id="drink-section"></section>
-
-
         <!-- side menu for search history -->
         <div id="search-sidebar" class="search-sidebar">
         </div>
 
-        <!-- Translator Section -->
-        <div class="translator">
-            <h2>Time to Translate Your Recipe</h2>
-            <!-- Add translator content here -->
-            <!-- Integrate with a translation API using JavaScript -->
-
+        <!-- Random Section -->
+        <div class="random mt-5">
+            <h2>Or...Pick a Random Drink!</h2>
+            <div class="col-md-7 mb-4">
+                <button class="randomBtn btn btn-info" type="button">Suggest a Random Cocktail</button>
+            </div>
+            <section id="drink-info-r" class="row mt-6">
+                <ul id="ingredients-r">
+                    <!-- Random drinks ingredients will be dynamically added here -->
+                </ul>
+                <div class="row" id="instructions-r"></div>
+            </section>
         </div>
     </div>
 
