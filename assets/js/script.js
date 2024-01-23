@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   var drinkNameList = [
     "110 in the shade",
     "151 Florida Bushwacker",
@@ -639,48 +639,48 @@ $(document).ready(function() {
   const drinkNameInputEl = $('#cocktail-name');
 
   drinkNameInputEl.autocomplete({
-      source: drinkNameList
+    source: drinkNameList
   });
 
   function handleFormSubmit(event) {
     event.preventDefault();
     let chosenDrink = drinkNameInputEl.val();
-    console.log("Chosen Drink:", chosenDrink); 
+    console.log("Chosen Drink:", chosenDrink);
     if (!chosenDrink) {
-        console.log('You need to choose a drink!');
-        return;
+      console.log('You need to choose a drink!');
+      return;
     }
     storeSearchTerm(chosenDrink);
     drinksAPI(chosenDrink);
-}
+  }
 
-drinkFormEl.on('submit', handleFormSubmit);
+  drinkFormEl.on('submit', handleFormSubmit);
 
   function storeSearchTerm(chosenDrink) {
     if (!chosenDrink) {
       console.log('No drink chosen, not storing.');
       return;
     }
-  
+
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
     searches.push(chosenDrink);
     localStorage.setItem('cocktail-names', JSON.stringify(searches));
-  
+
     console.log('Stored Searches:', localStorage.getItem('cocktail-names'));
-  
+
     displayStoredSearchTerms();
   }
-  
+
   function displayStoredSearchTerms() {
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
     let sidebar = $('#search-sidebar');
     sidebar.empty();
-    searches.forEach(function(chosenDrink) {
+    searches.forEach(function (chosenDrink) {
       sidebar.append(`<button>${chosenDrink}</button>`);
     });
   }
-  
-  
+
+
   const drinksAPI = function (chosenDrink) {
 
     let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;
@@ -691,9 +691,9 @@ drinkFormEl.on('submit', handleFormSubmit);
         'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
       }
     };
-    
+
     // ////////
-    
+
     // We then created an Fetch call
     fetch(url, cOptions)
       .then(function (response) {
@@ -701,30 +701,30 @@ drinkFormEl.on('submit', handleFormSubmit);
       })
       .then(function (data) {
         console.log(data);
-    
-    
+
+
         // Below isolates a specific drink object -- data.drinks[i].strDrink -- to create a drinkName array)
         let drinkName = [];
-    
+
         for (let i = 0; i < data.drinks.length; i++) {
           // drinkName = (data.drinks[i].strDrink)
           drinkName.push(data.drinks[i].strDrink)
         }
         console.log(drinkName)
-    
-    
+
+
         // DRINK PHOTO
         let drinkPhoto = [];
-    
+
         for (let i = 0; i < data.drinks.length; i++) {
           drinkPhoto.push(data.drinks[i].strDrinkThumb)
         }
         console.log(drinkPhoto)
-    
+
         // INGREDIENTS
         const drinks = data.drinks
         let drinkIngredients = [];
-    
+
         drinks.forEach(function (drink) {
           let ingredients = Object.keys(drink)
             .filter(function (key) {
@@ -736,177 +736,175 @@ drinkFormEl.on('submit', handleFormSubmit);
               }
               return result;
             }, []);
-        
+
           // Fixed the scoping issue -- declared ingredients outside
           drinkIngredients.push(ingredients);
         });
-    
-    
-            // RECIPE
-            let drinkInstructions = [];
-    
-            for (let i = 0; i < data.drinks.length; i++) {
-              drinkInstructions.push(data.drinks[i].strInstructions)
-            }
-            console.log(drinkInstructions)
-    
-    
-            const cardCol = $('<div>').attr('class', 'col-md')
-            const drinksCard = $('<div>').attr('class', 'card')
-            const cardBody = $('<div>').attr('class', 'card-body')
-    
+
+
+        // RECIPE
+        let drinkInstructions = [];
+
+        for (let i = 0; i < data.drinks.length; i++) {
+          drinkInstructions.push(data.drinks[i].strInstructions)
+        }
+        console.log(drinkInstructions)
+
+
+        const cardCol = $('<div>').attr('class', 'col-md')
+        const drinksCard = $('<div>').attr('class', 'card')
+        const cardBody = $('<div>').attr('class', 'card-body')
+
         // append drink name and photo
         const drinkTitle = $('<h2>').attr('class', 'card-title').text(`${drinkName}`)
         const drinksIcon = $('<img>').attr('src', drinkPhoto).width(200)
         $('#drink-info').append(cardCol)
         cardCol.append(drinksCard)
         drinksCard.append(cardBody)
-    
-    
-    // FOR LOOP HERE FOR EACH INGREDIENT
-    const drinkIngredientsEl = $('#ingredients');
-    
-    // Iterate over the drinkIngredients array
-    drinkIngredients.forEach(ingredients => {
-      // Create a new unordered list for each set of ingredients
-      const ingredientList = $('<ul>').attr('class', 'ingredient-list');
-    
-      // Iterate over the current set of ingredients and create list items
-      ingredients.forEach(ingredient => {
-        const listItem = $('<li>').text(ingredient);
-        ingredientList.append(listItem);
-      });
-    
-      // Append the current unordered list to the #ingredients ul
-      drinkIngredientsEl.append(ingredientList);
-    });
-    
-    // Append the other elements outside the loop into one card
-    cardBody.append(drinkTitle, drinksIcon, drinkIngredientsEl, drinkInstructions);
-    
-    });
-    }
 
-    // not sure what this function does so left it alone :)
-  function searchCocktails() {
-      drinkFormEl.submit();
+
+        // FOR LOOP HERE FOR EACH INGREDIENT
+        const drinkIngredientsEl = $('#ingredients');
+
+        // Iterate over the drinkIngredients array
+        drinkIngredients.forEach(ingredients => {
+          // Create a new unordered list for each set of ingredients
+          const ingredientList = $('<ul>').attr('class', 'ingredient-list');
+
+          // Iterate over the current set of ingredients and create list items
+          ingredients.forEach(ingredient => {
+            const listItem = $('<li>').text(ingredient);
+            ingredientList.append(listItem);
+          });
+
+          // Append the current unordered list to the #ingredients ul
+          drinkIngredientsEl.append(ingredientList);
+        });
+
+        // Append the other elements outside the loop into one card
+        cardBody.append(drinkTitle, drinksIcon, drinkIngredientsEl, drinkInstructions);
+
+      });
   }
+
 
   displayStoredSearchTerms();
 
 
+  //     Random Cocktail suggestion
+
+  // Button below will select a Random drink below when chosen
+  $('.randomBtn').click(function (e) {
+    e.preventDefault();
+    getRandomCocktail();
+  })
+
+  function getRandomCocktail() {
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/random.php`)
+      .then(
+        function (response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
 
 
-// // TRANSLATION API
+          response.json().then(function (data) {
+            console.log(data);
+            /////////////////////////////////////
 
-// // tried to create a variable called "translateInput" which connects to the API drinks result - don't think I'm doing it right
+            let drinkNameR = [];
 
-// const translateInput = $('#drink-info').text();
+            for (let i = 0; i < data.drinks.length; i++) {
+              drinkNameR.push(data.drinks[i].strDrink)
+            }
+            console.log(drinkNameR)
 
-// const translationChoice = 'es'; // Replace with the target language code
 
-// const translateUrl = 'https://deep-translate1.p.rapidapi.com/language/translate/v2';
-// const tOptions = {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'X-RapidAPI-Key': 'dd65562ce6msh0d8441fffb5ded0p19d99cjsn8a649b85763c',
-//         'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com'
-//     },
-//     body: JSON.stringify({
-//     // the "q" is where you input your text info (jQuery --> get item)
-//         q: translateInput,
-//         source: 'en',
-//         target: translationChoice
-//     })
-// };
+            // RANDOM DRINK PHOTO
+            let drinkPhotoR = [];
 
-// fetch(translateUrl, tOptions)
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error(`Translation failed with status: ${response.status}`);
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         console.log(data);
-//         if (data.translations && data.translations.translatedText) {
-//             const translatedText = data.translations.translatedText;
-//             console.log(`Translation result: ${translatedText}`);
+            for (let i = 0; i < data.drinks.length; i++) {
+              drinkPhotoR.push(data.drinks[i].strDrinkThumb)
+            }
+            console.log(drinkPhotoR)
 
-//         } else {
-//             console.log('Translation result not available.');
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error during translation:', error);
-//     });
-  
-  }); // end of '$(document).ready(function()' function
+            // R INGREDIENTS
+            const drinksR = data.drinks
+            let drinkIngredientsR = [];
 
-//Random Cocktail suggestion
+            drinksR.forEach(function (drink) {
+              let ingredients = Object.keys(drink)
+                .filter(function (key) {
+                  return key.startsWith('strIngredient');
+                })
+                .reduce(function (result, key) {
+                  if (drink[key]) {
+                    result.push(drink[key]);
+                  }
+                  return result;
+                }, []);
 
-function getRandomCocktail(){
-	fetch(`https://www.thecocktaildb.com/api/json/v1/1/random.php`)
-  .then(
-    function(response) {
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return;
-      }
+              drinkIngredientsR.push(ingredients);
+            });
 
-      //check text in the response
-      response.json().then(function(data) {
-      	//console.log(data);
-        displayCocktail(data);
+            console.log(drinkIngredientsR)
+
+
+            // RECIPE
+            let drinkInstructionsR = [];
+
+            for (let i = 0; i < data.drinks.length; i++) {
+              drinkInstructionsR.push(data.drinks[i].strInstructions)
+            }
+            console.log(drinkInstructionsR)
+
+
+            const cardColR = $('<div>').attr('class', 'col-md')
+            const drinksCardR = $('<div>').attr('class', 'card')
+            const cardBodyR = $('<div>').attr('class', 'card-body')
+
+            // append random drink name and photo
+            const drinkTitleR = $('<h2>').attr('class', 'card-title').text(`${drinkNameR}`)
+            const drinksIconR = $('<img>').attr('src', drinkPhotoR).width(200)
+            $('#drink-info-r').append(cardColR)
+            cardColR.append(drinksCardR)
+            drinksCardR.append(cardBodyR)
+
+
+            // FOR LOOP HERE FOR EACH INGREDIENT
+            const drinkIngredientsRandEl = $('#ingredients-r');
+
+            // Iterate over the drinkIngredients array
+            drinkIngredientsR.forEach(ingredients => {
+              // Create a new unordered list for each set of ingredients
+              const ingredientListR = $('<ul>').attr('class', 'ingredient-list');
+
+              // Iterate over the current set of ingredients and create list items
+              ingredients.forEach(ingredient => {
+                const listItemR = $('<li>').text(ingredient);
+                ingredientListR.append(listItemR);
+              });
+
+              // Append the current unordered list to the #ingredients ul
+              drinkIngredientsRandEl.append(ingredientListR);
+            });
+
+            // Append the other elements outside the loop into one card
+            cardBodyR.append(drinkTitleR, drinksIconR, drinkIngredientsRandEl, drinkInstructionsR);
+
+          });
+
+          ////////////////////////////////////////
+        }
+      )
+      .catch(function (err) {
+        console.log('Fetch Error :-S', err);
       });
-    }
-  )
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
 
-}
+  }
 
-getRandomCocktail();
 
-//to display drink
+}); // end of '$(document).ready(function()' function
 
-function displayCocktail(cocktail){
-	let drinkSection = document.querySelector('#drink-section');
-	drinkSection.innerHTML = '';
-	
-	//console.info(cocktail.drinks[0]);
-
-	let drinkName = document.createElement('h2');
-	drinkName.innerHTML = cocktail.drinks[0].strDrink;
-	drinkSection.appendChild(drinkName);
-
-	let drinkImg = document.createElement('img');
-	drinkImg.src = cocktail.drinks[0].strDrinkThumb;
-	drinkSection.appendChild(drinkImg);
-
-	//display ingredients
-	let ingredientHeading = document.createElement('h3');
-	ingredientHeading.innerText = 'Ingredients';
-	for(let i=1; i<16; i++){
-		if(cocktail.drinks[0][`strIngredient${i}`] == null){
-			break;
-		}
-
-		let measure = '';
-		if(cocktail.drinks[0][`strMeasure${i}`] != null){
-			measure = cocktail.drinks[0][`strMeasure${i}`] + ': ';
-		}
-
-		let ingredient = document.createElement('ons-list-item');
-		ingredient.innerText = measure + cocktail.drinks[0][`strIngredient${i}`];
-		drinkSection.appendChild(ingredient);
-	}
-
-	let instructions = document.createElement('');
-	instructions.innerText = cocktail.drinks[0].strInstructions;
-	drinkSection.appendChild(instructions);
-
-};
