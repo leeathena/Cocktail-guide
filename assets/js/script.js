@@ -843,3 +843,70 @@ drinkFormEl.on('submit', handleFormSubmit);
 //     });
   
   }); // end of '$(document).ready(function()' function
+
+//Random Cocktail suggestion
+
+function getRandomCocktail(){
+	fetch(`https://www.thecocktaildb.com/api/json/v1/1/random.php`)
+  .then(
+    function(response) {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          response.status);
+        return;
+      }
+
+      //check text in the response
+      response.json().then(function(data) {
+      	//console.log(data);
+        displayCocktail(data);
+      });
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });
+
+}
+
+getRandomCocktail();
+
+//to display drink
+
+function displayCocktail(cocktail){
+	let drinkSection = document.querySelector('#drink-section');
+	drinkSection.innerHTML = '';
+	
+	//console.info(cocktail.drinks[0]);
+
+	let drinkName = document.createElement('h2');
+	drinkName.innerHTML = cocktail.drinks[0].strDrink;
+	drinkSection.appendChild(drinkName);
+
+	let drinkImg = document.createElement('img');
+	drinkImg.src = cocktail.drinks[0].strDrinkThumb;
+	drinkSection.appendChild(drinkImg);
+
+	//display ingredients
+	let ingredientHeading = document.createElement('h3');
+	ingredientHeading.innerText = 'Ingredients';
+	for(let i=1; i<16; i++){
+		if(cocktail.drinks[0][`strIngredient${i}`] == null){
+			break;
+		}
+
+		let measure = '';
+		if(cocktail.drinks[0][`strMeasure${i}`] != null){
+			measure = cocktail.drinks[0][`strMeasure${i}`] + ': ';
+		}
+
+		let ingredient = document.createElement('ons-list-item');
+		ingredient.innerText = measure + cocktail.drinks[0][`strIngredient${i}`];
+		drinkSection.appendChild(ingredient);
+	}
+
+	let instructions = document.createElement('');
+	instructions.innerText = cocktail.drinks[0].strInstructions;
+	drinkSection.appendChild(instructions);
+
+};
