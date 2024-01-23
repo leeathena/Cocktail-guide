@@ -663,10 +663,10 @@ drinkFormEl.on('submit', handleFormSubmit);
     }
   
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
-    searches.push(chosenDrink);
-    localStorage.setItem('cocktail-names', JSON.stringify(searches));
-  
-    console.log('Stored Searches:', localStorage.getItem('cocktail-names'));
+    if (!searches.includes(chosenDrink)) {
+      searches.push(chosenDrink);
+      localStorage.setItem('cocktail-names', JSON.stringify(searches));
+    }
   
     displayStoredSearchTerms();
   }
