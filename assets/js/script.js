@@ -675,9 +675,13 @@ drinkFormEl.on('submit', handleFormSubmit);
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
     let sidebar = $('#search-sidebar');
     sidebar.empty();
+  
+    // Create a single row div
+    let rowDiv = $('<div class="row"></div>');
+  
     searches.forEach(function(chosenDrink) {
       // Create a button element for each stored search term
-      let button = $(`<button class="btn btn-primary btn-block">${chosenDrink}</button>`);
+      let button = $(`<button class="btn btn-primary">${chosenDrink}</button>`); // Removed btn-block to allow inline display
   
       // Add an event listener to each button
       button.on('click', function() {
@@ -685,11 +689,14 @@ drinkFormEl.on('submit', handleFormSubmit);
         drinksAPI(chosenDrink);
       });
   
-      // Append the button inside a div with class 'row'
-      let rowDiv = $('<div class="row"></div>').append(button);
-      sidebar.append(rowDiv);
+      // Append the button directly to the row div
+      rowDiv.append(button);
     });
+  
+    // Append the row div to the sidebar
+    sidebar.append(rowDiv);
   }
+  
   
   const drinksAPI = function (chosenDrink) {
 
