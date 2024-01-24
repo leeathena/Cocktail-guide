@@ -1,0 +1,44 @@
+// // TRANSLATION API
+
+// // will need to change "translateInput" in the url to a variable which is linked to the cocktail text result
+
+const translateInput = 'Hello'; // Replace with the text you want to translate
+// // will need to change "translationChoice" in the url to a variable which is linked to translate buttons
+const translationChoice = 'es'; // Replace with the target language code
+
+const translateUrl = 'https://deep-translate1.p.rapidapi.com/language/translate/v2';
+const tOptions = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-RapidAPI-Key': 'dd65562ce6msh0d8441fffb5ded0p19d99cjsn8a649b85763c',
+        'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com'
+    },
+    body: JSON.stringify({
+//  // the "q" is where you input your text info (jQuery --> get item)
+        q: translateInput,
+        source: 'en',
+        target: translationChoice
+    })
+};
+
+fetch(translateUrl, tOptions)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Translation failed with status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        if (data.translations && data.translations.translatedText) {
+            const translatedText = data.translations.translatedText;
+            console.log(`Translation result: ${translatedText}`);
+
+        } else {
+            console.log('Translation result not available.');
+        }
+    })
+    .catch(error => {
+        console.error('Error during translation:', error);
+    });

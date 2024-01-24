@@ -1,0 +1,80 @@
+/* Navbar Styles */
+.navbar {
+  background-color: #34495E; /* Wet Asphalt */
+}
+
+.navbar-brand {
+  color: #BDC3C7; /* Silver */
+}
+
+.navbar-nav .nav-link {
+  color: #95A5A6; /* Concrete */
+}
+
+body {
+  padding-top: 56px;
+  background-image: url(https://th.bing.com/th/id/R.d1569864f354dc64652db37ebc2a44ec?rik=la%2fAyGMlT6eTPw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fIce-Photo.jpeg&ehk=wuCNBXhd4vnzB2NfazCvIeobGzE1QmPf73IYRT9CZqQ%3d&risl=&pid=ImgRaw&r=0);
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(90deg, #7F8C8D 0%, #95A5A6 35%, #BDC3C7 100%); /* Silver, Concrete, Aluminium */
+  display: flex;
+  height: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Heading Styles */
+h1 {
+  color: #ECF0F1; /* Clouds */
+}
+
+h2 {
+  color: #BDC3C7; /* Silver */
+}
+
+h3 {
+  color: #95A5A6; /* Concrete */
+}
+
+/* Button Styles */
+.btn {
+  background-color: #5E6E71; /* Gray Asbestos */
+  color: #FFF; /* White */
+}
+
+.btn-primary {
+  background-color: #85929E; /* Grey Drizzle */
+}
+
+.btn-info {
+  background-color: #95A5A6; /* Concrete */
+}
+
+/* Input Styles */
+.form-control {
+  border-color: #34495E; /* Wet Asphalt */
+}
+
+/* Container Styles */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Random Section Styles */
+.random {
+  background-color: #95A5A6; /* Concrete */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #BDC3C7; /* Silver */
+  color: #FFF; /* White */
+  text-align: center;
+  padding: 10px;
+}
