@@ -2,21 +2,19 @@ body {
     padding-top: 56px;
     /* Adjust for fixed navbar */
     background-color: #F4AF69;
-    background-image:url(https://images.pexels.com/photos/5678094/pexels-photo-5678094.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+    background-image: url(https://images.pexels.com/photos/5678094/pexels-photo-5678094.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+
 }
 
-.translator {
-    margin-top: 20px;
-}
 
 .bg-dark {
-background-color: #F8CE74!important;
+    background-color: #F8CE74 !important;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #F9A962;
-    border-color: #FD6D78;
+    background-color: #FD6D78;
+    border-color: #F9A962;
 }
 
 .btn-info {
@@ -26,7 +24,7 @@ background-color: #F8CE74!important;
 }
 
 .btn-outline-secondary {
-   
+
     border-color: #F9A962;
 }
 
@@ -34,6 +32,7 @@ background-color: #F8CE74!important;
     background-color: purple;
     transition: 0.7s;
 }
+
 .btn-info:hover {
     background-color: purple;
     transition: 0.7s;
@@ -49,6 +48,36 @@ background-color: #F8CE74!important;
     transition: 0.7s;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: #fff;
+}
+
+.hero-search-bar {
+    background-size: cover;
+    background-position: center;
+    color: rgb(32, 21, 21);
+    /* Adjust text color for better visibility */
+    padding: 5px 0;
+    /* Adjust padding based on your image and content */
+    text-align: center;
+
+}
+
+.jumbotron {
+    background-color: #EFCD91;
+    background-image: url('path/to/your/image.jpg');
+    /* Replace with the actual path to your image */
+
+}
+
+.input-group {
+    justify-content: space-around;
+
+}
+
+.card-body h2,
+ul,
+li {
+    color: rgb(127, 8, 8) !important;
 }
