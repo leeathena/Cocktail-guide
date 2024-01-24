@@ -671,24 +671,23 @@ $(document).ready(function () {
     displayStoredSearchTerms();
   }
 
-  function displayStoredSearchTerms() {
-    let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
-    let sidebar = $('#search-sidebar');
-    sidebar.empty();
-    searches.forEach(function(chosenDrink) {
-      // Create a button element for each stored search term
-      let button = $(`<button class="btn btn-primary btn-block">${chosenDrink}</button>`);
-  
-      // Add an event listener to each button
+function displayStoredSearchTerms() {
+  let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
+  let sidebar = $('#search-sidebar');
+  sidebar.empty();
+  let rowDiv = $('<div class="row"></div>');
+  searches.forEach(function(chosenDrink) {
+    let button = $(`<button class="btn btn-primary">${chosenDrink}</button>`);
+    // Add an event listener to each button
+    (function(drink) {
       button.on('click', function() {
-        // When a button is clicked, call the drinksAPI function with the drink name
-        drinksAPI(chosenDrink);
+        drinksAPI(drink);
       });
-  
-      // Append the button inside a div with class 'row'
-      let rowDiv = $('<div class="row"></div>').append(button);
-      sidebar.append(rowDiv);
-    });
+    })(chosenDrink);
+    rowDiv.append(button);
+  });
+  sidebar.append(rowDiv);
+  $('#searchHistoryHeading').show();
   }
 
   const drinksAPI = function (chosenDrink) {
