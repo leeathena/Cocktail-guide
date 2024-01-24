@@ -894,7 +894,7 @@ $(document).ready(function () {
               // Create new unordered list
               const ingredientListR = $('<ul>').attr('class', 'ingredient-list');
 
-              // Iterate
+              // Iterate over each single ingredient - one list element created for each ingredient
               ingredients.forEach(ingredient => {
                 const listItemR = $('<li>').text(ingredient);
                 ingredientListR.append(listItemR);

@@ -1,8 +1,54 @@
 body {
     padding-top: 56px;
     /* Adjust for fixed navbar */
+    background-color: #F4AF69;
+    background-image:url(https://images.pexels.com/photos/5678094/pexels-photo-5678094.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
 }
 
 .translator {
     margin-top: 20px;
+}
+
+.bg-dark {
+background-color: #F8CE74!important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #F9A962;
+    border-color: #FD6D78;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #FD6D78;
+    border-color: #F9A962;
+}
+
+.btn-outline-secondary {
+   
+    border-color: #F9A962;
+}
+
+.btn-outline-secondary:hover {
+    background-color: purple;
+    transition: 0.7s;
+}
+.btn-info:hover {
+    background-color: purple;
+    transition: 0.7s;
+}
+
+.btn-primary:hover {
+    background-color: purple;
+    transition: 0.7s;
+}
+
+.btn-info:hover {
+    background-color: purple;
+    transition: 0.7s;
+}
+
+h1, h2 {
+    color: #fff;
 }
