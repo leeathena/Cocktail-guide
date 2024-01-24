@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   var drinkNameList = [
     "110 in the shade",
     "151 Florida Bushwacker",
@@ -639,7 +639,7 @@ $(document).ready(function() {
   const drinkNameInputEl = $('#cocktail-name');
 
   drinkNameInputEl.autocomplete({
-      source: drinkNameList
+    source: drinkNameList
   });
 
   function handleFormSubmit(event) {
@@ -654,7 +654,7 @@ $(document).ready(function() {
     drinksAPI(chosenDrink);
 }
 
-drinkFormEl.on('submit', handleFormSubmit);
+  drinkFormEl.on('submit', handleFormSubmit);
 
   function storeSearchTerm(chosenDrink) {
     if (!chosenDrink) {
@@ -670,7 +670,7 @@ drinkFormEl.on('submit', handleFormSubmit);
   
     displayStoredSearchTerms();
   }
-  
+
   function displayStoredSearchTerms() {
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
     let sidebar = $('#search-sidebar');
@@ -690,7 +690,7 @@ drinkFormEl.on('submit', handleFormSubmit);
       sidebar.append(rowDiv);
     });
   }
-  
+
   const drinksAPI = function (chosenDrink) {
 
     $('#drink-info').empty();
@@ -705,9 +705,9 @@ drinkFormEl.on('submit', handleFormSubmit);
       }
     };
     
-    // ////////
+    //////////
     
-    // We then created an Fetch call
+    // Fetch call
     fetch(url, cOptions)
       .then(function (response) {
         return response.json();
@@ -779,80 +779,145 @@ drinkFormEl.on('submit', handleFormSubmit);
     // FOR LOOP HERE FOR EACH INGREDIENT
     const drinkIngredientsEl = $('#ingredients');
     
-    // Iterate over the drinkIngredients array
+    // Below iterates over the drinkIngredients array
     drinkIngredients.forEach(ingredients => {
-      // Create a new unordered list for each set of ingredients
+      // Below creates a new unordered list for each set of ingredients
       const ingredientList = $('<ul>').attr('class', 'ingredient-list');
     
-      // Iterate over the current set of ingredients and create list items
+      // Below iterates over the current set of ingredients and create list items
       ingredients.forEach(ingredient => {
         const listItem = $('<li>').text(ingredient);
         ingredientList.append(listItem);
       });
     
-      // Append the current unordered list to the #ingredients ul
+      // Below appends the current unordered list to the #ingredients ul
       drinkIngredientsEl.append(ingredientList);
     });
     
-    // Append the other elements outside the loop into one card
+    // Below appends the other elements outside the loop into one card
     cardBody.append(drinkTitle, drinksIcon, drinkIngredientsEl, drinkInstructions);
     
     });
     }
 
-    // not sure what this function does so left it alone :)
-  function searchCocktails() {
-      drinkFormEl.submit();
-  }
 
   displayStoredSearchTerms();
 
 
+  //  RANDOM COCKTAIL SUGGESTION
+
+  // Button below will select a Random drink below when chosen
+  $('.randomBtn').click(function (e) {
+    e.preventDefault();
+    getRandomCocktail();
+  })
+
+  function getRandomCocktail() {
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/random.php`)
+      .then(
+        function (response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
 
 
-// // TRANSLATION API
+          response.json().then(function (data) {
+            console.log(data);
+            /////////////////////////////////////
 
-// // tried to create a variable called "translateInput" which connects to the API drinks result - don't think I'm doing it right
+            let drinkNameR = [];
 
-// const translateInput = $('#drink-info').text();
+            for (let i = 0; i < data.drinks.length; i++) {
+              drinkNameR.push(data.drinks[i].strDrink)
+            }
+            console.log(drinkNameR)
 
-// const translationChoice = 'es'; // Replace with the target language code
 
-// const translateUrl = 'https://deep-translate1.p.rapidapi.com/language/translate/v2';
-// const tOptions = {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'X-RapidAPI-Key': 'dd65562ce6msh0d8441fffb5ded0p19d99cjsn8a649b85763c',
-//         'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com'
-//     },
-//     body: JSON.stringify({
-//     // the "q" is where you input your text info (jQuery --> get item)
-//         q: translateInput,
-//         source: 'en',
-//         target: translationChoice
-//     })
-// };
+            // RANDOM DRINK PHOTO
+            let drinkPhotoR = [];
 
-// fetch(translateUrl, tOptions)
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error(`Translation failed with status: ${response.status}`);
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         console.log(data);
-//         if (data.translations && data.translations.translatedText) {
-//             const translatedText = data.translations.translatedText;
-//             console.log(`Translation result: ${translatedText}`);
+            for (let i = 0; i < data.drinks.length; i++) {
+              drinkPhotoR.push(data.drinks[i].strDrinkThumb)
+            }
+            console.log(drinkPhotoR)
 
-//         } else {
-//             console.log('Translation result not available.');
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error during translation:', error);
-//     });
-  
-  }); // end of '$(document).ready(function()' function
+            // R INGREDIENTS
+            const drinksR = data.drinks
+            let drinkIngredientsR = [];
+
+            drinksR.forEach(function (drink) {
+              let ingredients = Object.keys(drink)
+                .filter(function (key) {
+                  return key.startsWith('strIngredient');
+                })
+                .reduce(function (result, key) {
+                  if (drink[key]) {
+                    result.push(drink[key]);
+                  }
+                  return result;
+                }, []);
+
+              drinkIngredientsR.push(ingredients);
+            });
+
+            console.log(drinkIngredientsR)
+
+
+            // RECIPE
+            let drinkInstructionsR = [];
+
+            for (let i = 0; i < data.drinks.length; i++) {
+              drinkInstructionsR.push(data.drinks[i].strInstructions)
+            }
+            console.log(drinkInstructionsR)
+
+
+            const cardColR = $('<div>').attr('class', 'col-md')
+            const drinksCardR = $('<div>').attr('class', 'card')
+            const cardBodyR = $('<div>').attr('class', 'card-body')
+
+            // append random drink name and photo
+            const drinkTitleR = $('<h2>').attr('class', 'card-title').text(`${drinkNameR}`)
+            const drinksIconR = $('<img>').attr('src', drinkPhotoR).width(200)
+            $('#drink-info-r').append(cardColR)
+            cardColR.append(drinksCardR)
+            drinksCardR.append(cardBodyR)
+
+
+            // FOR LOOP HERE FOR EACH INGREDIENT
+            const drinkIngredientsRandEl = $('#ingredients-r');
+
+            // Iterate
+            drinkIngredientsR.forEach(ingredients => {
+              // Create new unordered list
+              const ingredientListR = $('<ul>').attr('class', 'ingredient-list');
+
+              // Iterate over each single ingredient - one list element created for each ingredient
+              ingredients.forEach(ingredient => {
+                const listItemR = $('<li>').text(ingredient);
+                ingredientListR.append(listItemR);
+              });
+
+              // Append 
+              drinkIngredientsRandEl.append(ingredientListR);
+            });
+
+            // Append the other elements
+            cardBodyR.append(drinkTitleR, drinksIconR, drinkIngredientsRandEl, drinkInstructionsR);
+
+          });
+
+          ////////////////////////////////////////
+        }
+      )
+      .catch(function (err) {
+        console.log('Fetch Error :-S', err);
+      });
+
+  }
+
+
+}); // end of '$(document).ready(function()' function
+
