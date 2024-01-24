@@ -32,9 +32,12 @@ The cocktail project features an on-net database that contains cocktail informat
 
 ## <a name='DeployedPage'></a>Deployed Page
 
-[Link to Deployed GitHub Page](https://your-username.github.io/Cocktail-guide)
+[Link to Deployed GitHub Page](https://leeathena.github.io/Cocktail-guide)
 
-![Deployed Page Screenshot](screenshots/screenshot.png)
+![Deployed Page Screenshot](scrnsht.png)
+
+![Deployed Page Mobile View](scrmob.png)
+
 
 ## <a name='Installation'></a>Installation
 

@@ -11,12 +11,7 @@ body {
     background-color: #F8CE74 !important;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #FD6D78;
-    border-color: #F9A962;
-}
-
+.btn-primary,
 .btn-info {
     color: #fff;
     background-color: #FD6D78;
@@ -24,29 +19,16 @@ body {
 }
 
 .btn-outline-secondary {
-
     border-color: #F9A962;
 }
 
-.btn-outline-secondary:hover {
-    background-color: purple;
-    transition: 0.7s;
-}
-
-.btn-info:hover {
-    background-color: purple;
-    transition: 0.7s;
-}
-
+.btn-outline-secondary:hover,
+.btn-info:hover,
 .btn-primary:hover {
     background-color: purple;
     transition: 0.7s;
 }
 
-.btn-info:hover {
-    background-color: purple;
-    transition: 0.7s;
-}
 
 h1,
 h2 {
@@ -66,14 +48,10 @@ h2 {
 
 .jumbotron {
     background-color: #EFCD91;
-    background-image: url('path/to/your/image.jpg');
-    /* Replace with the actual path to your image */
-
 }
 
 .input-group {
     justify-content: space-around;
-
 }
 
 .card-body h2,
@@ -81,3 +59,8 @@ ul,
 li {
     color: rgb(127, 8, 8) !important;
 }
+
+.card-body {
+    padding: 3.25rem;
+}
+
