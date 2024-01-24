@@ -1,0 +1,82 @@
+/* Navbar Styles */
+.navbar {
+  background-color: #FF6347; /* Tomato */
+}
+
+.navbar-brand {
+  color: #FFD700; /* Gold */
+}
+
+.navbar-nav .nav-link {
+  color: #32CD32; /* Lime Green */
+}
+
+body {
+  padding-top: 56px;
+  /* Adjust for fixed navbar */
+  background-color: rgba(0, 128, 0, 0.3) /* Green background with 30% opacity */;
+  background-image:url(https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg?cs=srgb&dl=abstract-background-blur-949587.jpg&fm=jpg);
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  display: flex;
+  height: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Heading Styles */
+h1 {
+  color: #FFD700; /* Gold */
+}
+
+h2 {
+  color: #FF6347; /* Tomato */
+}
+
+h3 {
+  color: #32CD32; /* Lime Green */
+}
+
+/* Button Styles */
+.btn {
+  background-color: #00BFFF; /* Deep Sky Blue */
+  color: #FFF; /* White */
+}
+
+.btn-primary {
+  background-color: #FF4500; /* Orange Red */
+}
+
+.btn-info {
+  background-color: #4169E1; /* Royal Blue */
+}
+
+/* Input Styles */
+.form-control {
+  border-color: #32CD32; /* Lime Green */
+}
+
+/* Container Styles */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Random Section Styles */
+.random {
+  background-color: #FFD700; /* Gold */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #FF6347; /* Tomato */
+  color: #FFF; /* White */
+  text-align: center;
+  padding: 10px;
+}
