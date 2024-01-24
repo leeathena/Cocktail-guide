@@ -1,0 +1,81 @@
+/* Navbar Styles */
+.navbar {
+  background-color: #2C3E50; /* Midnight Blue */
+}
+
+.navbar-brand {
+  color: #E74C3C; /* Alizarin Crimson */
+}
+
+.navbar-nav .nav-link {
+  color: #3498DB; /* Dodger Blue */
+}
+
+body {
+  padding-top: 56px;
+  /* Adjust for fixed navbar */
+  background-image:url(https://images.pexels.com/photos/1191710/pexels-photo-1191710.jpeg?cs=srgb&dl=art-art-materials-background-1191710.jpg&fm=jpg);
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(90deg, #1ABC9C 0%, #3498DB 35%, #9B59B6 100%); /* Turquoise, Dodger Blue, Amethyst */
+  display: flex;
+  height: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Heading Styles */
+h1 {
+  color: #2ECC71; /* Emerald */
+}
+
+h2 {
+  color: #E67E22; /* Carrot */
+}
+
+h3 {
+  color: #F39C12; /* Orange */
+}
+
+/* Button Styles */
+.btn {
+  background-color: #16A085; /* Green Sea */
+  color: #FFF; /* White */
+}
+
+.btn-primary {
+  background-color: #D35400; /* Pumpkin */
+}
+
+.btn-info {
+  background-color: #3498DB; /* Dodger Blue */
+}
+
+/* Input Styles */
+.form-control {
+  border-color: #2C3E50; /* Midnight Blue */
+}
+
+/* Container Styles */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Random Section Styles */
+.random {
+  background-color: #27AE60; /* Nephritis */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #E74C3C; /* Alizarin Crimson */
+  color: #FFF; /* White */
+  text-align: center;
+  padding: 10px;
+}
