@@ -693,9 +693,6 @@ $(document).ready(function () {
 
   const drinksAPI = function (chosenDrink) {
 
-    $('#drink-info').empty();
-
-
     let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;
     let cOptions = {
       method: 'GET',
@@ -705,9 +702,9 @@ $(document).ready(function () {
       }
     };
     
-    //////////
+    // ////////
     
-    // Fetch call
+    // We then created an Fetch call
     fetch(url, cOptions)
       .then(function (response) {
         return response.json();
@@ -779,22 +776,22 @@ $(document).ready(function () {
     // FOR LOOP HERE FOR EACH INGREDIENT
     const drinkIngredientsEl = $('#ingredients');
     
-    // Below iterates over the drinkIngredients array
+    // Iterate over the drinkIngredients array
     drinkIngredients.forEach(ingredients => {
-      // Below creates a new unordered list for each set of ingredients
+      // Create a new unordered list for each set of ingredients
       const ingredientList = $('<ul>').attr('class', 'ingredient-list');
     
-      // Below iterates over the current set of ingredients and create list items
+      // Iterate over the current set of ingredients and create list items
       ingredients.forEach(ingredient => {
         const listItem = $('<li>').text(ingredient);
         ingredientList.append(listItem);
       });
     
-      // Below appends the current unordered list to the #ingredients ul
+      // Append the current unordered list to the #ingredients ul
       drinkIngredientsEl.append(ingredientList);
     });
     
-    // Below appends the other elements outside the loop into one card
+    // Append the other elements outside the loop into one card
     cardBody.append(drinkTitle, drinksIcon, drinkIngredientsEl, drinkInstructions);
     
     });
