@@ -645,14 +645,14 @@ $(document).ready(function () {
   function handleFormSubmit(event) {
     event.preventDefault();
     let chosenDrink = drinkNameInputEl.val();
-    console.log("Chosen Drink:", chosenDrink); 
+    console.log("Chosen Drink:", chosenDrink);
     if (!chosenDrink) {
-        console.log('You need to choose a drink!');
-        return;
+      console.log('You need to choose a drink!');
+      return;
     }
     storeSearchTerm(chosenDrink);
     drinksAPI(chosenDrink);
-}
+  }
 
   drinkFormEl.on('submit', handleFormSubmit);
 
@@ -661,13 +661,13 @@ $(document).ready(function () {
       console.log('No drink chosen, not storing.');
       return;
     }
-  
+
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
     if (!searches.includes(chosenDrink)) {
       searches.push(chosenDrink);
       localStorage.setItem('cocktail-names', JSON.stringify(searches));
     }
-  
+
     displayStoredSearchTerms();
   }
 
@@ -675,20 +675,19 @@ $(document).ready(function () {
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
     let sidebar = $('#search-sidebar');
     sidebar.empty();
-    searches.forEach(function(chosenDrink) {
-      // Create a button element for each stored search term
-      let button = $(`<button class="btn btn-primary btn-block">${chosenDrink}</button>`);
-  
+    let rowDiv = $('<div class="row"></div>');
+    searches.forEach(function (chosenDrink) {
+      let button = $(`<button class="btn btn-primary">${chosenDrink}</button>`);
       // Add an event listener to each button
-      button.on('click', function() {
-        // When a button is clicked, call the drinksAPI function with the drink name
-        drinksAPI(chosenDrink);
-      });
-  
-      // Append the button inside a div with class 'row'
-      let rowDiv = $('<div class="row"></div>').append(button);
-      sidebar.append(rowDiv);
+      (function (drink) {
+        button.on('click', function () {
+          drinksAPI(drink);
+        });
+      })(chosenDrink);
+      rowDiv.append(button);
     });
+    sidebar.append(rowDiv);
+    $('#searchHistoryHeading').show();
   }
 
   const drinksAPI = function (chosenDrink) {
@@ -701,9 +700,9 @@ $(document).ready(function () {
         'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
       }
     };
-    
+
     // ////////
-    
+
     // We then created an Fetch call
     fetch(url, cOptions)
       .then(function (response) {
@@ -711,30 +710,30 @@ $(document).ready(function () {
       })
       .then(function (data) {
         console.log(data);
-    
-    
+
+
         // Below isolates a specific drink object -- data.drinks[i].strDrink -- to create a drinkName array)
         let drinkName = [];
-    
+
         for (let i = 0; i < data.drinks.length; i++) {
           // drinkName = (data.drinks[i].strDrink)
           drinkName.push(data.drinks[i].strDrink)
         }
         console.log(drinkName)
-    
-    
+
+
         // DRINK PHOTO
         let drinkPhoto = [];
-    
+
         for (let i = 0; i < data.drinks.length; i++) {
           drinkPhoto.push(data.drinks[i].strDrinkThumb)
         }
         console.log(drinkPhoto)
-    
+
         // INGREDIENTS
         const drinks = data.drinks
         let drinkIngredients = [];
-    
+
         drinks.forEach(function (drink) {
           let ingredients = Object.keys(drink)
             .filter(function (key) {
@@ -746,56 +745,63 @@ $(document).ready(function () {
               }
               return result;
             }, []);
-        
+
           // Fixed the scoping issue -- declared ingredients outside
           drinkIngredients.push(ingredients);
         });
-    
-    
-            // RECIPE
-            let drinkInstructions = [];
-    
-            for (let i = 0; i < data.drinks.length; i++) {
-              drinkInstructions.push(data.drinks[i].strInstructions)
-            }
-            console.log(drinkInstructions)
-    
-    
-            const cardCol = $('<div>').attr('class', 'col-md')
-            const drinksCard = $('<div>').attr('class', 'card')
-            const cardBody = $('<div>').attr('class', 'card-body')
-    
+
+
+        // RECIPE
+        let drinkInstructions = [];
+
+        for (let i = 0; i < data.drinks.length; i++) {
+          drinkInstructions.push(data.drinks[i].strInstructions)
+        }
+        console.log(drinkInstructions)
+
+
+        const cardCol = $('<div>').attr('class', 'col-md')
+        const drinksCard = $('<div>').attr('class', 'card')
+        const cardBody = $('<div>').attr('class', 'card-body')
+
         // append drink name and photo
         const drinkTitle = $('<h2>').attr('class', 'card-title').text(`${drinkName}`)
         const drinksIcon = $('<img>').attr('src', drinkPhoto).width(200)
         $('#drink-info').append(cardCol)
         cardCol.append(drinksCard)
         drinksCard.append(cardBody)
-    
-    
-    // FOR LOOP HERE FOR EACH INGREDIENT
-    const drinkIngredientsEl = $('#ingredients');
-    
-    // Iterate over the drinkIngredients array
-    drinkIngredients.forEach(ingredients => {
-      // Create a new unordered list for each set of ingredients
-      const ingredientList = $('<ul>').attr('class', 'ingredient-list');
-    
-      // Iterate over the current set of ingredients and create list items
-      ingredients.forEach(ingredient => {
-        const listItem = $('<li>').text(ingredient);
-        ingredientList.append(listItem);
+
+
+        // FOR LOOP HERE FOR EACH INGREDIENT
+        const drinkIngredientsEl = $('#ingredients');
+
+        // Iterate over the drinkIngredients array
+        drinkIngredients.forEach(ingredients => {
+          // Create a new unordered list for each set of ingredients
+          const ingredientList = $('<ul>').attr('class', 'ingredient-list');
+
+          // Iterate over the current set of ingredients and create list items
+          ingredients.forEach(ingredient => {
+            const listItem = $('<li>').text(ingredient);
+            ingredientList.append(listItem);
+          });
+
+
+          // Append the current unordered list to the #ingredients ul
+          drinkIngredientsEl.append(ingredientList);
+        });
+
+        // Adding additional text (headers) above the elements to append
+        const IngHeader = $('<h4>').text('Ingredients:')
+        const RecipeHeader = $('<h4>').text('Recipe:')
+
+        const RecipeEl = $('<p>').text(drinkInstructions);
+
+        // Append the other elements outside the loop into one card
+        cardBody.append(drinkTitle, drinksIcon, IngHeader, drinkIngredientsEl, RecipeHeader, RecipeEl);
+
       });
-    
-      // Append the current unordered list to the #ingredients ul
-      drinkIngredientsEl.append(ingredientList);
-    });
-    
-    // Append the other elements outside the loop into one card
-    cardBody.append(drinkTitle, drinksIcon, drinkIngredientsEl, drinkInstructions);
-    
-    });
-    }
+  }
 
 
   displayStoredSearchTerms();
