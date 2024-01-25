@@ -688,10 +688,11 @@ $(document).ready(function () {
     });
     sidebar.append(rowDiv);
     $('#searchHistoryHeading').show();
+
   }
 
   const drinksAPI = function (chosenDrink) {
-
+    $('#drink-info').empty();
     let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;
     let cOptions = {
       method: 'GET',
@@ -760,45 +761,39 @@ $(document).ready(function () {
         console.log(drinkInstructions)
 
 
-        const cardCol = $('<div>').attr('class', 'col-md')
-        const drinksCard = $('<div>').attr('class', 'card')
-        const cardBody = $('<div>').attr('class', 'card-body')
+        const cardBody = $('<div>').attr('class', 'card-body card col-md');
 
         // append drink name and photo
-        const drinkTitle = $('<h2>').attr('class', 'card-title').text(`${drinkName}`)
-        const drinksIcon = $('<img>').attr('src', drinkPhoto).width(200)
-        $('#drink-info').append(cardCol)
-        cardCol.append(drinksCard)
-        drinksCard.append(cardBody)
-
-
-        // FOR LOOP HERE FOR EACH INGREDIENT
-        const drinkIngredientsEl = $('#ingredients');
-
+        const drinkTitle = $('<h2>').attr('class', 'card-title').text(`${drinkName}`);
+        const drinksIcon = $('<img>').attr('src', drinkPhoto).width(200);
+        $('#drink-info').append(cardBody);
+        
+        // Below = container for ingredients
+        const ingredientsContainer = $('<div>');
+        
         // Iterate over the drinkIngredients array
         drinkIngredients.forEach(ingredients => {
           // Create a new unordered list for each set of ingredients
           const ingredientList = $('<ul>').attr('class', 'ingredient-list');
-
-          // Iterate over the current set of ingredients and create list items
+        
+          // Iterates over 'ingredients' and create list items for each ingredient
           ingredients.forEach(ingredient => {
             const listItem = $('<li>').text(ingredient);
             ingredientList.append(listItem);
           });
-
-
-          // Append the current unordered list to the #ingredients ul
-          drinkIngredientsEl.append(ingredientList);
+        
+          // Append to container div
+          ingredientsContainer.append(ingredientList);
         });
 
         // Adding additional text (headers) above the elements to append
         const IngHeader = $('<h4>').text('Ingredients:')
         const RecipeHeader = $('<h4>').text('Recipe:')
 
-        const RecipeEl = $('<p>').text(drinkInstructions);
-
-        // Append the other elements outside the loop into one card
-        cardBody.append(drinkTitle, drinksIcon, IngHeader, drinkIngredientsEl, RecipeHeader, RecipeEl);
+        const Recipe = $('<p>').text(drinkInstructions);
+        
+        // Append the other elements into one card
+        cardBody.append(drinkTitle, drinksIcon, IngHeader, ingredientsContainer, RecipeHeader, Recipe);
 
       });
   }
@@ -816,6 +811,9 @@ $(document).ready(function () {
   })
 
   function getRandomCocktail() {
+    
+    $('#drink-info-r').empty();
+
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/random.php`)
       .then(
         function (response) {
@@ -877,38 +875,39 @@ $(document).ready(function () {
             console.log(drinkInstructionsR)
 
 
-            const cardColR = $('<div>').attr('class', 'col-md')
-            const drinksCardR = $('<div>').attr('class', 'card')
-            const cardBodyR = $('<div>').attr('class', 'card-body')
+            const cardBodyR = $('<div>').attr('class', 'card-body card col-md');
 
-            // append random drink name and photo
-            const drinkTitleR = $('<h2>').attr('class', 'card-title').text(`${drinkNameR}`)
-            const drinksIconR = $('<img>').attr('src', drinkPhotoR).width(200)
-            $('#drink-info-r').append(cardColR)
-            cardColR.append(drinksCardR)
-            drinksCardR.append(cardBodyR)
-
-
-            // FOR LOOP HERE FOR EACH INGREDIENT
-            const drinkIngredientsRandEl = $('#ingredients-r');
-
-            // Iterate
+            // append drink name and photo
+            const drinkTitleR = $('<h2>').attr('class', 'card-title').text(`${drinkNameR}`);
+            const drinksIconR = $('<img>').attr('src', drinkPhotoR).width(200);
+            $('#drink-info-r').append(cardBodyR);
+            
+            // Below = container for ingredients
+            const ingredientsContainerR = $('<div>');
+            
+            // Iterate over the drinkIngredients array
             drinkIngredientsR.forEach(ingredients => {
-              // Create new unordered list
+              // Create a new unordered list for each set of ingredients
               const ingredientListR = $('<ul>').attr('class', 'ingredient-list');
-
-              // Iterate over each single ingredient - one list element created for each ingredient
+            
+              // Iterates over 'ingredients' and create list items for each ingredient
               ingredients.forEach(ingredient => {
                 const listItemR = $('<li>').text(ingredient);
                 ingredientListR.append(listItemR);
               });
-
-              // Append 
-              drinkIngredientsRandEl.append(ingredientListR);
+            
+              // Append to container div
+              ingredientsContainerR.append(ingredientListR);
             });
-
-            // Append the other elements
-            cardBodyR.append(drinkTitleR, drinksIconR, drinkIngredientsRandEl, drinkInstructionsR);
+    
+            // Adding additional text (headers) above the elements to append
+            const IngHeaderR = $('<h4>').text('Ingredients:')
+            const RecipeHeaderR = $('<h4>').text('Recipe:')
+    
+            const RecipeR = $('<p>').text(drinkInstructionsR);
+            
+            // Append the other elements into one card
+            cardBodyR.append(drinkTitleR, drinksIconR, IngHeaderR, ingredientsContainerR, RecipeHeaderR, RecipeR);
 
           });
 

@@ -56,14 +56,23 @@ h2 {
 
 .card-body h2,
 ul,
-li {
-    color: rgb(127, 8, 8) !important;
+li,
+h4,
+p {
+    color: whitesmoke !important;
 }
 
 .card-body {
     padding: 3.25rem;
+    background-color: rgb(127, 8, 8, 0.4) !important;
+    border-color: transparent !important;
 }
 
 *, ::after, ::before {
     box-sizing: content-box;
+}
+
+
+.ui-menu, .ui-menu-item-wrapper  {
+    color:  rgb(127, 8, 8) !important;
 }
