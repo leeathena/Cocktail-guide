@@ -646,7 +646,8 @@ $(document).ready(function () {
     event.preventDefault();
     let chosenDrink = drinkNameInputEl.val();
     console.log("Chosen Drink:", chosenDrink);
-    if (!chosenDrink) {
+    // changed the if statement below so it doesn't allow you to search anything - must equal a value in the drinkNameList
+    if (!drinkNameList.includes(chosenDrink)) {
       console.log('You need to choose a drink!');
       return;
     }
@@ -657,7 +658,8 @@ $(document).ready(function () {
   drinkFormEl.on('submit', handleFormSubmit);
 
   function storeSearchTerm(chosenDrink) {
-    if (!chosenDrink) {
+        // changed the if statement below so it doesn't allow you to search anything - must equal a value in the drinkNameList
+    if (!drinkNameList.includes(chosenDrink)) {
       console.log('No drink chosen, not storing.');
       return;
     }
