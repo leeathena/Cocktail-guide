@@ -32,9 +32,12 @@ The cocktail project features an on-net database that contains cocktail informat
 
 ## <a name='DeployedPage'></a>Deployed Page
 
-[Link to Deployed GitHub Page](https://your-username.github.io/Cocktail-guide)
+[Link to Deployed GitHub Page](https://leeathena.github.io/Cocktail-guide)
 
-![Deployed Page Screenshot](screenshots/screenshot.png)
+![Deployed Page Screenshot](scrnsht.png)
+
+![Deployed Page Mobile View](scrmob.png)
+
 
 ## <a name='Installation'></a>Installation
 
@@ -77,9 +80,9 @@ If you'd like to contribute to the project, please follow these steps:
 - Special thanks [EdX Bootcamp](https://www.edx.org/) for giving us the opportunity to work on this project.
 - Special thanks to our Teaching Assitant, Kimberly Rodriguez.
 - Special thanks to Laura Cole, our main Bootcamp Tutor.
-- Special thanks to [Tome.app](https://tome.app/) for AI generating images our presentation .
+- Special thanks to [Tome.app](https://tome.app/) for AI generating images for our presentation.
 - Special thanks to [Google](https://google.com) for allowing us to search for resources for our page.
-- Special thanks to []()
+- Special thanks to [Pexels](https://images.pexels.com) for our background image.
 
 ## <a name='License'></a>License
 
