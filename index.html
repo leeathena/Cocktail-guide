@@ -16,34 +16,42 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Cocktail Library</a>
+        <a class="navbar-brand" href="https://leeathena.github.io/Cocktail-guide/">Cocktail Library</a>
         <!-- Add other menu items as needed -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Saved Recipes</a>
+                    <a class="nav-link" href="https://rapidapi.com/thecocktaildb/api/the-cocktail-db/details/ " target="_blank">Check Our API</a>
                 </li>
                 <!-- Add more menu items as needed -->
             </ul>
         </div>
     </nav>
 
+    <div class="container-fluid">
+
+        <div class="jumbotron text-center mt-5">
+            <h1 class="display-4">Cocktail Library</h1>
+            <p class="lead">Discover and create your favorite cocktails!</p>
+
+        <!-- Hero Search Bar with background image -->
+        <section class="hero-search-bar d-flex align-items-center justify-content-center">
+            <div class="input-group mb-3">
+                <form id="cocktail-form">
+                    <input type="text" class="form-control" placeholder="Search for a drink..." id="cocktail-name">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+
+
     <!-- Content -->
-    <div class="container">
-        <h1>Cocktail Library</h1>
-
-        <!-- Search Bar for Cocktails -->
-        <div class="input-group mb-3">
-            <form id="cocktail-form">
-                <input type="text" class="form-control mt-1" placeholder="Search for a drink..." id="cocktail-name">
-                <div class="input-group-append mt-2">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </div>
-            </form>
-        </div>
-
         <section id="drink-info" class="row mt-6">
-            <ul id="ingredients">
+            <ul id="ingredient">
                 <!-- Drinks ingredients will be dynamically added here -->
             </ul>
             <div class="row" id="instructions"></div>
@@ -57,7 +65,7 @@
         <div class="random mt-5">
             <h2>Or...Pick a Random Drink!</h2>
             <div class="col-md-7 mb-4">
-                <button class="randomBtn btn btn-info" type="button">Suggest a Random Cocktail</button>
+                <button class="randomBtn btn btn-info align-items-center" type="button" >Suggest a Random Cocktail</button>
             </div>
             <section id="drink-info-r" class="row mt-6">
                 <ul id="ingredients-r">
@@ -81,3 +89,4 @@
 </body>
 
 </html>
+

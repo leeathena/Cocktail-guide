@@ -671,36 +671,38 @@ drinkFormEl.on('submit', handleFormSubmit);
     displayStoredSearchTerms();
   }
   
+  //Append buttons with search history
   function displayStoredSearchTerms() {
     let searches = JSON.parse(localStorage.getItem('cocktail-names')) || [];
     let sidebar = $('#search-sidebar');
     sidebar.empty();
   
-    // Create a single row div
     let rowDiv = $('<div class="row"></div>');
   
     searches.forEach(function(chosenDrink) {
-      // Create a button element for each stored search term
-      let button = $(`<button class="btn btn-primary">${chosenDrink}</button>`); // Removed btn-block to allow inline display
+      let button = $(`<button class="btn btn-primary">${chosenDrink}</button>`);
   
       // Add an event listener to each button
-      button.on('click', function() {
-        // When a button is clicked, call the drinksAPI function with the drink name
-        drinksAPI(chosenDrink);
-      });
-  
-      // Append the button directly to the row div
+      (function(drink) {
+        button.on('click', function() {
+          drinksAPI(drink);
+        });
+      })(chosenDrink);
+
       rowDiv.append(button);
     });
-  
-    // Append the row div to the sidebar
+
     sidebar.append(rowDiv);
-  }
+    $('#searchHistoryHeading').show();
+    }
+
   
   
   const drinksAPI = function (chosenDrink) {
 
     $('#drink-info').empty();
+
+    
 
 
     let url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${chosenDrink}`;

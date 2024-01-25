@@ -1,7 +1,5 @@
-
-
 # Cocktail-Library
-group project 1 - January 2024
+Group Project 1 - January 2024 
 
 # Cocktail-Guide
 
@@ -13,12 +11,14 @@ We created our Library to encompass anything from combining whiskey and cola to 
 
 - **Search Cocktails:** Easily search for your favorite cocktails by name.
 - **View Drink Details:** Get detailed information about each cocktail, including ingredients and instructions.
+- **Pick a random recipe** When you are out of ideas just click on our button at the bottom of our page and surprise yourself with an excellent recipe choice.
 
 
 # <a name='Description'></a>Description
 This is a web application that allows users to search for cocktail recipes and explore their ingredients.
 
-The cocktail project features an on-net database that contains cocktail information which can be integrated into applications, software, and websites. We used a JSON API to get a vast array of cocktail recipes. A personal key or application was required to access this API. A html file and CSS script was coded to best showcase our skills.  
+The cocktail project features an on-net database that contains cocktail information which can be integrated into applications, software, and websites. We used a JSON API to get a vast array of cocktail recipes. A personal key or application was required to access this API. A html file and CSS script was coded to best showcase our skills. The page is mobile and desktop responsive due to the usage of Bootstrap.
+
 
 ## <a name='TableofContents'></a>Table of Contents
 
@@ -32,9 +32,12 @@ The cocktail project features an on-net database that contains cocktail informat
 
 ## <a name='DeployedPage'></a>Deployed Page
 
-[Link to Deployed GitHub Page](https://your-username.github.io/Cocktail-guide)
+[Link to Deployed GitHub Page](https://leeathena.github.io/Cocktail-guide)
 
-![Deployed Page Screenshot](screenshots/screenshot.png)
+![Deployed Page Screenshot](scrnsht.png)
+
+![Deployed Page Mobile View](scrmob.png)
+
 
 ## <a name='Installation'></a>Installation
 
@@ -72,12 +75,14 @@ If you'd like to contribute to the project, please follow these steps:
 ## Acknowledgments
 
 - Thanks to [The Cocktail DB](https://www.thecocktaildb.com/) for providing the cocktail data.
-- Inspiration for this project came from [mention any inspiration or resources below].
-
-- Special thanks []().
-- 1
-- 2
-- 3
+- Inspiration for this project came from a collective brainstorming within the group.
+- Special thanks [EdX Bootcamp](https://www.edx.org/) for giving us the opportunity to work on this project.
+- Special thanks to our Teaching Assitant, Kimberly Rodriguez.
+- Special thanks to Laura Cole, our main Bootcamp Tutor.
+- Special thanks to [Bootstrap](https://getbootstrap.com/).
+- Special thanks to [Tome.app](https://tome.app/) for AI generating images for our presentation.
+- Special thanks to [Google](https://google.com) for allowing us to search for resources for our page.
+- Special thanks to [Pexels](https://images.pexels.com) for our background image.
 
 ## <a name='License'></a>License
 
